@@ -30,23 +30,46 @@ switcher = hs.window.switcher.new(
     }
 )
 
-
 spoon.ModalMgr.supervisor:bind(
    hyper, "]", 'next window', function()
       switcher:next()
-      updateFocusAppInputMethod()
-
 end)
 spoon.ModalMgr.supervisor:bind(
    hyper, "[", 'previous window', function()
       switcher:previous()
-      updateFocusAppInputMethod()
 end)
 spoon.ModalMgr.supervisor:bind(
    hyper, "/", 'Show Window Hints', function()
       spoon.ModalMgr:deactivateAll()
       hs.hints.windowHints()
 end)
+-- set imputmethod
+local function Chinese()
+  hs.keycodes.currentSourceID("com.sogou.inputmethod.sogou.pinyin")
+end
+
+local function English()
+  hs.keycodes.currentSourceID("com.apple.keylayout.ABC")
+end
+
+local function set_app_input_method(app_name, set_input_method_function, event)
+  event = event or hs.window.filter.windowFocused
+
+  hs.window.filter.new(app_name)
+    :subscribe(event, function()
+                 set_input_method_function()
+              end)
+end
+
+set_app_input_method('Hammerspoon', English, hs.window.filter.windowCreated)
+set_app_input_method('LaunchBar', English, hs.window.filter.windowCreated)
+set_app_input_method('Emacs', English)
+set_app_input_method('iTerm2', English)
+set_app_input_method('Google Chrome', English)
+set_app_input_method('IntelliJ IDEA', English)
+
+set_app_input_method('WeChat', Chinese)
+set_app_input_method('QQ', Chinese)
 
 -- Open Hammerspoon manual in default browser
 spoon.ModalMgr.supervisor:bind(
