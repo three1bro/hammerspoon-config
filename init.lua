@@ -247,7 +247,7 @@ end)
 
 -- Toogle Hammerspoon console
 spoon.ModalMgr.supervisor:bind(
-   hyper, "return", "Toogle Hammerspoon Console", function()
+   hyper, ",", "Toogle Hammerspoon Console", function()
       hs.toggleConsole()
 end)
 
