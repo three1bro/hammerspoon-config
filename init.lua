@@ -1,4 +1,4 @@
--- Variable setting
+-- Global variable setting
 hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
 hs.window.animationDuration = 0
@@ -31,15 +31,15 @@ switcher = hs.window.switcher.new(
 )
 
 spoon.ModalMgr.supervisor:bind(
-   hyper, "]", 'next window', function()
+   hyper, "F", 'next window', function()
       switcher:next()
 end)
 spoon.ModalMgr.supervisor:bind(
-   hyper, "[", 'previous window', function()
+   hyper, "B", 'previous window', function()
       switcher:previous()
 end)
 spoon.ModalMgr.supervisor:bind(
-   hyper, "/", 'Show Window Hints', function()
+   hyper, "L", 'Show Window Hints', function()
       spoon.ModalMgr:deactivateAll()
       hs.hints.windowHints()
 end)
@@ -67,6 +67,7 @@ set_app_input_method('Emacs', English)
 set_app_input_method('iTerm2', English)
 set_app_input_method('Google Chrome', English)
 set_app_input_method('IntelliJ IDEA', English)
+set_app_input_method('Safari', English)
 
 set_app_input_method('WeChat', Chinese)
 set_app_input_method('QQ', Chinese)
