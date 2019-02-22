@@ -3,13 +3,20 @@ hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
 hs.window.animationDuration = 0
 
+hs.loadSpoon("SpoonInstall")
+isl = spoon.SpoonInstall
 -- load Spoons
 hs.loadSpoon("ModalMgr")
 hs.loadSpoon("CountDown")
-hs.loadSpoon("SpeedMenu")
 hs.loadSpoon("WinWin")
 hs.loadSpoon("KSheet")
 
+isl:andUse(
+    "WindowGrid",
+    {
+        config = {gridGeometries = {{"6x4"}}},
+        start = true
+})
 -- init speaker
 speaker = hs.speech.new()
 
@@ -179,6 +186,9 @@ end)
 caffeinateTrayIcon:setClickCallback(toggleCaffeinate)
 caffeinateSetIcon(sleepStatus)
 
+
+hs.loadSpoon("SpeedMenu")
+
 -- Windows manager
 spoon.ModalMgr:new("windowsM")
 local cmodal = spoon.ModalMgr.modal_list["windowsM"]
@@ -199,9 +209,9 @@ cmodal:bind('', 'Z', 'SouthWest Corner', function() spoon.WinWin:stash() spoon.W
 cmodal:bind('', 'X', 'SouthEast Corner', function() spoon.WinWin:stash() spoon.WinWin:moveAndResize("cornerSE") end)
 cmodal:bind('', 'F', 'Fullscreen', function() spoon.WinWin:stash() spoon.WinWin:moveAndResize("fullscreen") end)
 cmodal:bind('', 'C', 'Center Window', function() spoon.WinWin:stash() spoon.WinWin:moveAndResize("center") end)
+cmodal:bind('', ';', 'Show Grid', function() hs.grid.show() end)
 cmodal:bind('', '=', 'Stretch Outward', function() spoon.WinWin:moveAndResize("expand") end, nil, function() spoon.WinWin:moveAndResize("expand") end)
 cmodal:bind('', '-', 'Shrink Inward', function() spoon.WinWin:moveAndResize("shrink") end, nil, function() spoon.WinWin:moveAndResize("shrink") end)
-
 cmodal:bind('shift', 'H', 'Move Leftward', function() spoon.WinWin:stepResize("left") end, nil, function() spoon.WinWin:stepResize("left") end)
 cmodal:bind('shift', 'L', 'Move Rightward', function() spoon.WinWin:stepResize("right") end, nil, function() spoon.WinWin:stepResize("right") end)
 cmodal:bind('shift', 'K', 'Move Upward', function() spoon.WinWin:stepResize("up") end, nil, function() spoon.WinWin:stepResize("up") end)
@@ -263,7 +273,7 @@ end)
 spoon.ModalMgr.supervisor:enter()
 
 -- We put reload notify at end of config, notify popup mean no error in config.
-hs.notify.new({title="HManager", informativeText="Sean, I am here!"}):send()
+hs.notify.new({title="DSP", informativeText="Sean, I am here!"}):send()
 
 -- Speak something after configuration success.
 speaker:speak("Sean, I am here!")
